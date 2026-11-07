@@ -2,6 +2,8 @@ package org.cuatrovientos.Tamagotchis;
 
 import java.util.Scanner;
 
+import org.cuatrovientos.HilosCarrera.HilosCorredor;
+
 public class Cuidador {
 	
     public static void main(String[] args) {
@@ -30,6 +32,12 @@ public class Cuidador {
     	} while(error);
         
     	Thread[] hilos = new Thread[numero];
+    	for (int i = 0; i < hilos.length; i++) {
+            hilos[i] = new Thread(new Tamagotchis(i + 1));
+        }
     	
+    	for (int i = 0; i < hilos.length; i++) {
+            hilos[i].start();
+        }
     }
 }
