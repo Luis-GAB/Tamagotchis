@@ -7,17 +7,29 @@ public class Cuidador {
     public static void main(String[] args) {
     	
     	Scanner readFromConsole = new Scanner(System.in);
-    	boolean error = false;
+    	boolean error;
+    	String leer;
+    	int numero = 0;
     	
     	do {
+    		error = true;
+    		System.out.print("¿Cuantos Tamagotchis quieres encender?: ");
     		try {
-    			System.out.println("¿Cuantos Tamagotchis quieres encender?: ");
+    			leer = readFromConsole.nextLine();
+	       		numero = Integer.parseInt(leer);
+	       		if (numero <= 0) {
+	       			System.out.println("¡Error! El número debe ser mayor a 0");
+	       		} else {
+	       			error = false;
+	       		}
     		} catch (Exception e) {
-    			System.out.print("Ha habido un error en la ejecución: " + e.getMessage());
-    			
+    			System.out.println("Ha habido un error en la ejecución: " + e.getMessage());
+    			//e.printStackTrace();
     		}
     		
     	} while(error);
         
+    	Thread[] hilos = new Thread[numero];
+    	
     }
 }
