@@ -1,14 +1,15 @@
 package org.cuatrovientos.Tamagotchis;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-
-import org.cuatrovientos.HilosCarrera.HilosCorredor;
 
 public class Cuidador {
 	
     public static void main(String[] args) {
     	
     	Scanner readFromConsole = new Scanner(System.in);
+    	Map<Thread, Tamagotchis> hilosEjecutandose = new HashMap<Thread, Tamagotchis>();
     	boolean error;
     	String leer;
     	int numero = 0;
