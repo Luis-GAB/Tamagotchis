@@ -97,6 +97,12 @@ public class Cuidador {
            	            if (mascotaRespuesta != null) {
 
             	            int[] pregunta = mascotaRespuesta.getPregunta();
+            	            
+            	            if (pregunta[0] == -1) {
+            	            	System.out.println("El Tamagotchi no esta jugando.");
+            	            	System.out.println("Inizializalo desde la opción 2");
+            	            	break;
+            	            }
                 	        System.out.print("¿Cuánto es " + pregunta[0] + " + " + pregunta[1] + "?: ");
 
                 	        System.out.print("Respuesta: ");

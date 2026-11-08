@@ -7,6 +7,7 @@ public class Tamagotchis implements Runnable {
 	private int numTamagotchi;
 	private volatile boolean vivo = true;
 	private volatile boolean ocupado = false;
+	private boolean estaJugando = false;
 	
 	private int suciedad;
 	private int tiempoSuciedad = 0;
@@ -80,14 +81,14 @@ public class Tamagotchis implements Runnable {
 	
 	public boolean comer() {
 
-	    if (!vivo || ocupado) {
+	    if (!vivo || ocupado || estaJugando) {
 	        return false;
 	    }
 	    ocupado = true;
 
         Thread hiloComer = new Thread(() -> {
 
-            logConTimestamp("Empieza a comer una manzana. velocidad:" + velComer);
+            logConTimestamp("Empieza a comer una manzana.");
             try {
                 Thread.sleep(velComer);
                 if (vivo) {
@@ -114,6 +115,7 @@ public class Tamagotchis implements Runnable {
         }
 
         ocupado = true;
+        estaJugando = true;
         generarPregunta();
         logConTimestamp("El Tamagotchi quiere jugar.");
 
@@ -126,8 +128,12 @@ public class Tamagotchis implements Runnable {
     }
 	
 	public int[] getPregunta() {
+		
+		if (estaJugando) {
+			return new int[]{num1, num2};
+		}		
+		return new int[]{-1, -1};
 
-        return new int[]{num1, num2};
     }
 	
 	public boolean responderJuego(int respuesta) {
@@ -135,6 +141,7 @@ public class Tamagotchis implements Runnable {
         if (respuesta == num1 + num2) {
             logConTimestamp("¡Respuesta correcta! Fin del juego.");
             ocupado = false;
+            estaJugando = false;
             return true;
 
         } else {
@@ -146,7 +153,7 @@ public class Tamagotchis implements Runnable {
 	
 	public boolean limpiar() {
 		 
-		if (!vivo || ocupado) {
+		if (!vivo || ocupado || estaJugando) {
 	        return false;
 	    }
 		 
