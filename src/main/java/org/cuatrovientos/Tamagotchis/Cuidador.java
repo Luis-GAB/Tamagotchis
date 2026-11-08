@@ -75,7 +75,19 @@ public class Cuidador {
            	        	break;
            	        //Jugar
            	        case 2:
-           	        	
+           	        	Tamagotchis mascotaJugar = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
+           	            if (mascotaJugar != null) {
+
+            	            int[] pregunta = mascotaJugar.iniciarJuego();
+ 
+            	            if (pregunta == null) {
+            	                System.out.println("Está ocupado o muerto.");
+
+                	        } else {
+                	            System.out.println("Pregunta del Tamagotchi: " + pregunta[0] + " + " + pregunta[1]);
+            	                System.out.println("Responde desde la opción 8");
+            	            }
+            	        }   	
            	        	break;
            	        //Limpiar
            	        case 3:

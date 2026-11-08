@@ -105,6 +105,20 @@ public class Tamagotchis implements Runnable {
 	    
 	}
 	
+	public int[] iniciarJuego() {
+
+        if (!vivo || ocupado) {
+            return null;
+        }
+
+        ocupado = true;
+        int num1 = randomNum.nextInt(8) + 1;
+        int num2 = randomNum.nextInt(9 - num1) + 1;
+        logConTimestamp("El Tamagotchi quiere jugar.");
+
+        return new int[]{num1, num2};
+    }
+	
 	public boolean limpiar() {
 		 
 		if (!vivo || ocupado) {
