@@ -12,6 +12,8 @@ public class Tamagotchis implements Runnable {
 	private int tiempoSuciedad = 0;
 	private int velComer = 0;
 	
+	private int num1;
+	private int num2;
 	private long timestampInicio;
 	private Random randomNum = new Random();
 
@@ -112,11 +114,34 @@ public class Tamagotchis implements Runnable {
         }
 
         ocupado = true;
-        int num1 = randomNum.nextInt(8) + 1;
-        int num2 = randomNum.nextInt(9 - num1) + 1;
+        generarPregunta();
         logConTimestamp("El Tamagotchi quiere jugar.");
 
         return new int[]{num1, num2};
+    }
+	
+	private void generarPregunta() {
+        num1 = randomNum.nextInt(8) + 1;
+        num2 = randomNum.nextInt(9 - num1) + 1;
+    }
+	
+	public int[] getPregunta() {
+
+        return new int[]{num1, num2};
+    }
+	
+	public boolean responderJuego(int respuesta) {
+
+        if (respuesta == num1 + num2) {
+            logConTimestamp("¡Respuesta correcta! Fin del juego.");
+            ocupado = false;
+            return true;
+
+        } else {
+            logConTimestamp("Respuesta incorrecta. ¡Quiere seguir jugando!");
+            generarPregunta();
+            return false;
+        }
     }
 	
 	public boolean limpiar() {

@@ -50,11 +50,12 @@ public class Cuidador {
     		System.out.println("-------- CUIDADOR --------");
             System.out.println("1. Dar de comer");
             System.out.println("2. Jugar");
-            System.out.println("3. Limpiar");
-            System.out.println("4. Consultar estado");
-            System.out.println("5. Matar Tamagotchi");
-            System.out.println("6. Matar todos los ociosos");
-            System.out.println("7. Salir");
+            System.out.println("3. Responder pregunta");
+            System.out.println("4. Limpiar");
+            System.out.println("5. Consultar estado");
+            System.out.println("6. Matar Tamagotchi");
+            System.out.println("7. Matar todos los ociosos");
+            System.out.println("8. Salir");
             
             try {
             	leer = readFromConsole.nextLine();
@@ -85,12 +86,32 @@ public class Cuidador {
 
                 	        } else {
                 	            System.out.println("Pregunta del Tamagotchi: " + pregunta[0] + " + " + pregunta[1]);
-            	                System.out.println("Responde desde la opción 8");
+            	                System.out.println("Responde desde la opción 3");
             	            }
             	        }   	
            	        	break;
-           	        //Limpiar
+           	        //Responder
            	        case 3:
+                	    Tamagotchis mascotaRespuesta = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
+
+           	            if (mascotaRespuesta != null) {
+
+            	            int[] pregunta = mascotaRespuesta.getPregunta();
+                	        System.out.print("¿Cuánto es " + pregunta[0] + " + " + pregunta[1] + "?: ");
+
+                	        System.out.print("Respuesta: ");
+                	        leer = readFromConsole.nextLine();
+                       		int respuesta = Integer.parseInt(leer);
+
+            	            if (!(mascotaRespuesta.responderJuego(respuesta))) {
+            	                pregunta = mascotaRespuesta.getPregunta();
+            	                System.out.println("¡Incorrecto! Nueva pregunta: " + pregunta[0] + " + " + pregunta[1]);
+            	            }
+            	        }
+           	            break;
+           	        	
+           	        //Limpiar
+           	        case 4:
            	        	Tamagotchis mascotaLimpiar = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
                         if (mascotaLimpiar != null) {
 
@@ -102,19 +123,19 @@ public class Cuidador {
                         }
            	        	break;
            	        //Consultar estado
-           	        case 4:
-           	        	
-           	        	break;
-           	        //Matar Tamagotchi
            	        case 5:
            	        	
            	        	break;
-           	        //Matar todos los ociosos
+           	        //Matar Tamagotchi
            	        case 6:
            	        	
            	        	break;
-           	        //Salir
+           	        //Matar todos los ociosos
            	        case 7:
+           	        	
+           	        	break;
+           	        //Salir
+           	        case 8:
            	        	
            	        	break;
            	        default:
