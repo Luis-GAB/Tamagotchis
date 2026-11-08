@@ -74,6 +74,7 @@ public class Cuidador {
                             }
                         }
            	        	break;
+           	        	
            	        //Jugar
            	        case 2:
            	        	Tamagotchis mascotaJugar = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
@@ -90,6 +91,7 @@ public class Cuidador {
             	            }
             	        }   	
            	        	break;
+           	        	
            	        //Responder
            	        case 3:
                 	    Tamagotchis mascotaRespuesta = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
@@ -128,6 +130,7 @@ public class Cuidador {
                             }
                         }
            	        	break;
+           	        	
            	        //Consultar estado
            	        case 5:
            	        	System.out.println("-Estado de los Tamagotchis:");
@@ -135,6 +138,7 @@ public class Cuidador {
                             System.out.println("  Estado Tamagotchi nº" + tamagotchi.getNumTamagotchi() + "  : " + tamagotchi.getEstado() + " | Suciedad: " + tamagotchi.getSuciedad());
                         }
            	        	break;
+           	        	
            	        //Matar Tamagotchi
            	        case 6:
            	        	Tamagotchis mascotaMatar = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
@@ -148,6 +152,7 @@ public class Cuidador {
                             }
                         }
            	        	break;
+           	        	
            	        //Matar todos los ociosos
            	        case 7:
            	        	for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
@@ -156,10 +161,12 @@ public class Cuidador {
                             }
                         }
            	        	break;
+           	        	
            	        //Salir
            	        case 8:
            	        	System.out.println("Fin del programa.");
            	        	break;
+           	        	
            	        default:
            	        	System.out.println("Opción no valida.");
            	        	break;
@@ -180,7 +187,6 @@ public class Cuidador {
     }
     
     private static Tamagotchis seleccionarTamagotchi(Scanner readFromConsole, Map<Thread, Tamagotchis> hilosEjecutandose) {
-    	
     	System.out.print("Introduce el número del Tamagotchi: ");
     	String leer = readFromConsole.nextLine();
    		int numTamagotchi = Integer.parseInt(leer);
@@ -197,7 +203,6 @@ public class Cuidador {
     }
     
     private static boolean todosMuertos(Map<Thread, Tamagotchis> hilosEjecutandose) {
-
     	//Recorre todos los Tamagotchis y comprueba si alguno de ellos sigue vivo
         for (Tamagotchis t : hilosEjecutandose.values()) {
             if (t.getEstado().equals("vivo y ocioso") || t.getEstado().equals("jugando") || t.getEstado().equals("ocupado")) {

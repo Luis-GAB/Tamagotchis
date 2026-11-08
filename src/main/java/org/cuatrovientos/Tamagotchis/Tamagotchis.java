@@ -30,8 +30,6 @@ public class Tamagotchis implements Runnable {
 		logConTimestamp("Tamagotchi encendido.");
 		//Definimos la velocidad a la que comera este Tamagotchi ---> entre 20 y 50 segundos
 		velComer = randomNum.nextInt(20000, 50001);
-		int tiempoJugar  = randomNum.nextInt(20000, 50001);
-		int tiempoComer = 0;
 		int tiempoVida = 0;
 		
 		while (vivo) {
@@ -41,7 +39,7 @@ public class Tamagotchis implements Runnable {
 				tiempoVida++;
 				tiempoSuciedad++;
 				
-				if (tiempoSuciedad >= 300) {
+				if (tiempoVida >= 300) {
 					vivo = false;
 					logConTimestamp("El tiempo de vida del Tamagotchi se ha acabado.");
 					break;
@@ -182,7 +180,6 @@ public class Tamagotchis implements Runnable {
 	}
 	
 	public boolean matar() {
-
         if (!vivo || ocupado || estaJugando) {
             return false;
         }
@@ -200,7 +197,6 @@ public class Tamagotchis implements Runnable {
 	}
 	
 	public String getEstado() {
-
         if (!vivo) {
             return "muerto";
         }
