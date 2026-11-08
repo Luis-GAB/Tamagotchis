@@ -132,7 +132,7 @@ public class Cuidador {
            	        case 5:
            	        	System.out.println("-Estado de los Tamagotchis:");
                         for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
-                            System.out.println("Estado: " + tamagotchi.getEstado() + " | Suciedad: " + tamagotchi.getSuciedad());
+                            System.out.println("  Estado Tamagotchi nº" + tamagotchi.getNumTamagotchi() + "  : " + tamagotchi.getEstado() + " | Suciedad: " + tamagotchi.getSuciedad());
                         }
            	        	break;
            	        //Matar Tamagotchi
@@ -141,18 +141,20 @@ public class Cuidador {
 
                         if (mascotaMatar != null) {
                             if (mascotaMatar.matar()) {
-
                                 System.out.println("Tamagotchi destruido.");
 
                             } else {
-
                                 System.out.println("No se puede destruir: está ocupado o muerto.");
                             }
                         }
            	        	break;
            	        //Matar todos los ociosos
            	        case 7:
-           	        	
+           	        	for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
+                            if (tamagotchi.matar()) {
+                                System.out.println("Tamagotchi nº" + tamagotchi.getNumTamagotchi() + " ha sido destruido.");
+                            }
+                        }
            	        	break;
            	        //Salir
            	        case 8:
@@ -167,7 +169,7 @@ public class Cuidador {
             	System.out.println("Ha habido un error en la ejecución: " + e.getMessage());
             }
     		
-    	} while (opcion != 7);
+    	} while (opcion != 8);
     	
     	readFromConsole.close();
     	
