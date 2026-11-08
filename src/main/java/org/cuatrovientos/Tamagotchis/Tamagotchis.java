@@ -92,7 +92,7 @@ public class Tamagotchis implements Runnable {
                 if (vivo) {
                     suciedad = 0;
                     tiempoSuciedad = 0;
-                    logConTimestamp("Ha terminado de bañarse. Suciedad a 0.");
+                    logConTimestamp("El Tamagotchi ha finalizado su baño.");
                 }
 
             } catch (InterruptedException e) {
@@ -105,5 +105,15 @@ public class Tamagotchis implements Runnable {
 		hiloLimpiar.start();
         return true;	 
 	}
+
+	public int getNumTamagotchi() {
+		return numTamagotchi;
+	}
+
+	public void setNumTamagotchi(int numTamagotchi) {
+		this.numTamagotchi = numTamagotchi;
+	}
+	
+	
 
 }
