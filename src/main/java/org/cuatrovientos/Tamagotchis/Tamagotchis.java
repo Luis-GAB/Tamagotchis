@@ -182,6 +182,16 @@ public class Tamagotchis implements Runnable {
 		hiloLimpiar.start();
         return true;	 
 	}
+	
+	public boolean matar() {
+
+        if (!vivo || ocupado || estaJugando) {
+            return false;
+        }
+        vivo = false;
+        logConTimestamp("Tamagotchi destruido.");
+        return true;
+    }
 
 	public int getNumTamagotchi() {
 		return numTamagotchi;

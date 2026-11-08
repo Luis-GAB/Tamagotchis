@@ -131,13 +131,24 @@ public class Cuidador {
            	        //Consultar estado
            	        case 5:
            	        	System.out.println("-Estado de los Tamagotchis:");
-                        for (Tamagotchis t : hilosEjecutandose.values()) {
-                            System.out.println("Estado: " + t.getEstado() + " | Suciedad: " + t.getSuciedad());
+                        for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
+                            System.out.println("Estado: " + tamagotchi.getEstado() + " | Suciedad: " + tamagotchi.getSuciedad());
                         }
            	        	break;
            	        //Matar Tamagotchi
            	        case 6:
-           	        	
+           	        	Tamagotchis mascotaMatar = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
+
+                        if (mascotaMatar != null) {
+                            if (mascotaMatar.matar()) {
+
+                                System.out.println("Tamagotchi destruido.");
+
+                            } else {
+
+                                System.out.println("No se puede destruir: está ocupado o muerto.");
+                            }
+                        }
            	        	break;
            	        //Matar todos los ociosos
            	        case 7:
