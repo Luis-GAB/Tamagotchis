@@ -41,6 +41,12 @@ public class Tamagotchis implements Runnable {
 				tiempoVida++;
 				tiempoSuciedad++;
 				
+				if (tiempoSuciedad >= 300) {
+					vivo = false;
+					logConTimestamp("El tiempo de vida del Tamagotchi se ha acabado.");
+					break;
+				}
+				
 				//Suciedad (Suma 1 de suciedad cada 20 segundos)
 				if (tiempoSuciedad >= 20) {
 					
@@ -55,17 +61,9 @@ public class Tamagotchis implements Runnable {
                     if (suciedad >= 10) {
                         logConTimestamp("El Tamagotchi ha muerto por la suciedad.");
                         vivo = false;
-                    }
-					
+                        break;
+                    }		
 				}
-				//Cada 20 segundos sube en uno la suciedad. 20*5 = 100
-				//if (tiempoSuciedad == 100) {
-				//	logConTimestamp("El Tamagotchi esta muy sucio.");
-				//} else if (tiempoSuciedad == 200) {
-					//Al tener suciedad 10 (tiempoSuciedad -> 20*10 = 200) se muere.
-				//	logConTimestamp("El Tamagotchi ha muerto por la suciedad.");
-				//	vivo = false;
-				//}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				logConTimestamp("Error desconocido, se apago al Tamagotchi.");
@@ -217,6 +215,11 @@ public class Tamagotchis implements Runnable {
 
         return "vivo y ocioso";
     }
+	
+	public void apagarForzado() {
+	    vivo = false;
+	    logConTimestamp("El Tamagotchi ha sido apagado.");
+	}
 	
 	public synchronized int getSuciedad() {
         return suciedad;

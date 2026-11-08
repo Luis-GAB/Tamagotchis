@@ -158,7 +158,7 @@ public class Cuidador {
            	        	break;
            	        //Salir
            	        case 8:
-           	        	
+           	        	System.out.println("Fin del programa.");
            	        	break;
            	        default:
            	        	System.out.println("Opción no valida.");
@@ -169,10 +169,14 @@ public class Cuidador {
             	System.out.println("Ha habido un error en la ejecución: " + e.getMessage());
             }
     		
-    	} while (opcion != 8);
+    	} while (opcion != 8 && !todosMuertos(hilosEjecutandose));
     	
+    	for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
+    		tamagotchi.apagarForzado();
+        }
+    	System.out.println("Todos los Tamagotchis han muerto.");
+    	System.out.println("Programa finalizado...");
     	readFromConsole.close();
-    	
     }
     
     private static Tamagotchis seleccionarTamagotchi(Scanner readFromConsole, Map<Thread, Tamagotchis> hilosEjecutandose) {
@@ -190,7 +194,18 @@ public class Cuidador {
    		
    		System.out.println("No se ha encontrado el Tamagotchi.");
    	    return null;
-    	
+    }
+    
+    private static boolean todosMuertos(Map<Thread, Tamagotchis> hilosEjecutandose) {
+
+    	//Recorre todos los Tamagotchis y comprueba si alguno de ellos sigue vivo
+        for (Tamagotchis t : hilosEjecutandose.values()) {
+            if (t.getEstado().equals("vivo y ocioso") || t.getEstado().equals("jugando") || t.getEstado().equals("ocupado")) {
+                return false;
+            }
+        }
+
+        return true;
     }
     
     
