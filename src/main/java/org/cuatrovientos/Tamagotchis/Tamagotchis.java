@@ -5,8 +5,11 @@ import java.util.Random;
 public class Tamagotchis implements Runnable {
 	
 	private int numTamagotchi;
+	boolean vivo = true;
+	private volatile boolean ocupado = false;
 	
 	private int suciedad;
+	private int tiempoSuciedad = 0;
 	
 	private long timestampInicio;
 	private Random randomNum = new Random();
@@ -21,10 +24,8 @@ public class Tamagotchis implements Runnable {
 		// TODO Auto-generated method stub
 		timestampInicio = System.currentTimeMillis();
 		logConTimestamp("Tamagotchi encendido.");
-		boolean vivo = true;
 		int velComer = randomNum.nextInt(20000, 50001);
 		int tiempoJugar  = randomNum.nextInt(20000, 50001);
-		int tiempoSuciedad = 0;
 		int tiempoComer = 0;
 		int tiempoVida = 0;
 		
@@ -43,7 +44,7 @@ public class Tamagotchis implements Runnable {
                     //logConTimestamp("Nivel de suciedad: " + suciedad);
                     
                     if (suciedad == 5) {
-                        logConTimestamp("¡Estoy empezando a estar muy sucio!");
+                        logConTimestamp("El Tamagotchi esta empezando a estar muy sucio.");
                     }
                     
                     if (suciedad >= 10) {
@@ -72,5 +73,37 @@ public class Tamagotchis implements Runnable {
 	private void logConTimestamp(String log){
     	System.out.println("Tamagotchi nº: "+ numTamagotchi +"; Timestamp: "+(System.currentTimeMillis() - timestampInicio)+": "+log);
     }
+	
+	public boolean limpiar() {
+		 
+		if (!vivo || ocupado) {
+	        return false;
+	    }
+		 
+		ocupado = true;
+		
+		Thread hiloLimpiar = new Thread(() -> {
+		
+			logConTimestamp("El Tamagotchi empieza a bañarse.");
+		 
+		    try {
+                Thread.sleep(5000);
+
+                if (vivo) {
+                    suciedad = 0;
+                    tiempoSuciedad = 0;
+                    logConTimestamp("Ha terminado de bañarse. Suciedad a 0.");
+                }
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } finally {
+                ocupado = false;
+            }
+		});
+		
+		hiloLimpiar.start();
+        return true;	 
+	}
 
 }
