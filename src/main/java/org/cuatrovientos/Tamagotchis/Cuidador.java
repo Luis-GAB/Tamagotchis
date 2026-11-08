@@ -130,7 +130,10 @@ public class Cuidador {
            	        	break;
            	        //Consultar estado
            	        case 5:
-           	        	
+           	        	System.out.println("-Estado de los Tamagotchis:");
+                        for (Tamagotchis t : hilosEjecutandose.values()) {
+                            System.out.println("Estado: " + t.getEstado() + " | Suciedad: " + t.getSuciedad());
+                        }
            	        	break;
            	        //Matar Tamagotchi
            	        case 6:

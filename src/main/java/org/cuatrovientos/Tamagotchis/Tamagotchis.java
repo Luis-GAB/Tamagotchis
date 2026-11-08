@@ -191,6 +191,25 @@ public class Tamagotchis implements Runnable {
 		this.numTamagotchi = numTamagotchi;
 	}
 	
+	public String getEstado() {
+
+        if (!vivo) {
+            return "muerto";
+        }
+
+        if (ocupado) {
+            return "ocupado";
+        }
+        
+        if (estaJugando) {
+            return "jugando";
+        }
+
+        return "vivo y ocioso";
+    }
 	
+	public synchronized int getSuciedad() {
+        return suciedad;
+    }
 
 }
