@@ -63,7 +63,15 @@ public class Cuidador {
            	    switch (opcion) {
            	        //Dar de comer
            	        case 1:
-           	        	
+           	        	Tamagotchis mascotaComer = seleccionarTamagotchi(readFromConsole, hilosEjecutandose);
+                        if (mascotaComer != null) {
+
+                            if (mascotaComer.comer()) {
+                                System.out.println("Orden de comer enviada a Tamagotchi nº" + mascotaComer.getNumTamagotchi());
+                            } else {
+                                System.out.println("No se puede dar de comer al Tamagotchi nº" + mascotaComer.getNumTamagotchi() + ": está ocupado o muerto.");
+                            }
+                        }
            	        	break;
            	        //Jugar
            	        case 2:
@@ -118,10 +126,10 @@ public class Cuidador {
     	String leer = readFromConsole.nextLine();
    		int numTamagotchi = Integer.parseInt(leer);
    		
-   		for (Tamagotchis t : hilosEjecutandose.values()) {
+   		for (Tamagotchis tamagotchi : hilosEjecutandose.values()) {
 
-   	        if (t.getNumTamagotchi() == numTamagotchi) {
-   	            return t;
+   	        if (tamagotchi.getNumTamagotchi() == numTamagotchi) {
+   	            return tamagotchi;
    	        }
    	    }
    		

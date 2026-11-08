@@ -5,11 +5,12 @@ import java.util.Random;
 public class Tamagotchis implements Runnable {
 	
 	private int numTamagotchi;
-	boolean vivo = true;
+	private volatile boolean vivo = true;
 	private volatile boolean ocupado = false;
 	
 	private int suciedad;
 	private int tiempoSuciedad = 0;
+	private int velComer = 0;
 	
 	private long timestampInicio;
 	private Random randomNum = new Random();
@@ -24,7 +25,8 @@ public class Tamagotchis implements Runnable {
 		// TODO Auto-generated method stub
 		timestampInicio = System.currentTimeMillis();
 		logConTimestamp("Tamagotchi encendido.");
-		int velComer = randomNum.nextInt(20000, 50001);
+		//Definimos la velocidad a la que comera este Tamagotchi ---> entre 20 y 50 segundos
+		velComer = randomNum.nextInt(20000, 50001);
 		int tiempoJugar  = randomNum.nextInt(20000, 50001);
 		int tiempoComer = 0;
 		int tiempoVida = 0;
@@ -73,6 +75,35 @@ public class Tamagotchis implements Runnable {
 	private void logConTimestamp(String log){
     	System.out.println("Tamagotchi nº: "+ numTamagotchi +"; Timestamp: "+(System.currentTimeMillis() - timestampInicio)+": "+log);
     }
+	
+	public boolean comer() {
+
+	    if (!vivo || ocupado) {
+	        return false;
+	    }
+	    ocupado = true;
+
+        Thread hiloComer = new Thread(() -> {
+
+            logConTimestamp("Empieza a comer una manzana. velocidad:" + velComer);
+            try {
+                Thread.sleep(velComer);
+                if (vivo) {
+                    logConTimestamp("Ha terminado de comer.");
+                }
+
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+
+            } finally {
+                ocupado = false;
+            }
+        });
+
+        hiloComer.start();
+        return true;
+	    
+	}
 	
 	public boolean limpiar() {
 		 
